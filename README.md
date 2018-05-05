@@ -198,7 +198,7 @@ Resume Next
         
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ Cal and Depletion" Then
 On Error GoTo Errorhandler_11
-Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Single UPS Annual w Cal.docx")
+Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Single UPS Annual w Cal and Depl.docx")
  For Each targettable In referencedoc.Tables
     targettable.Range.Select
     Debug.Print targettable.Title
