@@ -1,6 +1,7 @@
 # Transfer-Script
 A macro enabled template that will pull a table of steps from a reference document and then add the necessary information based on selections from the userform.
 
+
 Private Sub LAS7transfer()
 
     Dim Criticalitylevel_7 As Range
@@ -52,33 +53,26 @@ Private Sub LAS7transfer()
     Dim BuildingName_7 As Range
     Dim footerSite_7 As Range
     Dim footerSite_7_1 As Range
-    Dim targettable As table
+    Dim targettable_7 As table
     
     
     
 Set targetdoc = Documents.Open(FileName:=Environ("USERPROFILE") & "\Desktop\" & ProjectName.Text & " " & "transfer script" & " " & Month(Now) _
-    & "." & Day(Now) & "." & Year(Now) & ".docx")
+    & "_" & Day(Now) & "_" & Year(Now) & ".docx")
     
 setpduLAS7
+
 If cboSite.value = "LAS 7" And cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/o Cal or Depletion" Then
 On Error GoTo Errorhandler_8
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Single UPS Annual or Corrective.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_1_7 = Nothing
     Set UPS_2_7 = Nothing
@@ -97,38 +91,25 @@ Set targettable = referencedoc.Tables(1)
     Set EquipmentID_7 = ActiveDocument.Bookmarks("tEquipmentID").Range
     Set equipmentID_2_7 = Nothing
     EquipmentID_7.Text = cboEquipmentID.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
-    generatorselectionLAS7
     
 Errorhandler_8:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Single UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste
+            End If
 
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Corrective Maintenance" Then
 On Error GoTo Errorhandler_9
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Single UPS Annual or Corrective.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_1:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_1_7 = Nothing
     Set UPS_2_7 = Nothing
@@ -142,45 +123,28 @@ Set targettable = referencedoc.Tables(1)
     Set UPS_10_7 = Nothing
     Set UPS_11_7 = Nothing
     Set UPS_12_7 = Nothing
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set EquipmentID_7 = ActiveDocument.Bookmarks("tEquipmentID").Range
     Set equipmentID_2_7 = Nothing
     EquipmentID_7.Text = cboEquipmentID.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
-    generatorselectionLAS7
     
 Errorhandler_9:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Single UPS Annual or Corrective.docx")
-            End Select
-Resume Next
-
+            GoTo copyandpaste_1
+            End If
+            
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ Cal" Then
 On Error GoTo Errorhandler_10
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Single UPS Annual w Cal.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_2:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_1_7 = Nothing
     Set UPS_2_7 = Nothing
@@ -197,40 +161,25 @@ Set targettable = referencedoc.Tables(1)
     Set EquipmentID_7 = ActiveDocument.Bookmarks("tEquipmentID").Range
     Set equipmentID_2_7 = Nothing
     EquipmentID_7.Text = cboEquipmentID.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
-    generatorselectionLAS7
-    
+
 Errorhandler_10:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Single UPS Annual w Cal.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_2
+            End If
     
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ Cal and Depletion" Then
 On Error GoTo Errorhandler_11
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Single UPS Annual w Cal and Depl.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc.Tables
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_3:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_1_7 = Nothing
     Set UPS_2_7 = Nothing
@@ -247,41 +196,26 @@ Set targettable = referencedoc.Tables(1)
     Set EquipmentID_7 = ActiveDocument.Bookmarks("tEquipmentID").Range
     Set equipmentID_2_7 = Nothing
     EquipmentID_7.Text = cboEquipmentID.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
-    generatorselectionLAS7
     
 Errorhandler_11:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Single UPS Annual w Cal and Depl.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_3
+            End If
     
     
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w/o Cal or Depletion" Then
 On Error GoTo Errorhandler_12
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Multiple UPS Annual or Corrective.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc.Tables
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_4:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_1_7 = ActiveDocument.Bookmarks("tUPS_1").Range
     Set UPS_2_7 = ActiveDocument.Bookmarks("tUPS_2").Range
@@ -295,9 +229,6 @@ Set targettable = referencedoc.Tables(1)
     Set equipmentID_2_7 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
     EquipmentID_7.Text = cboEquipmentID.value
     equipmentID_2_7.Text = "and " & cboEquipmentID_2.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
     UPS_1_7.Text = cboEquipmentID.value
     UPS_2_7.Text = cboEquipmentID_2.value
     UPS_3_7.Text = cboEquipmentID.value
@@ -306,37 +237,25 @@ Set targettable = referencedoc.Tables(1)
     UPS_6_7.Text = cboEquipmentID.value
     UPS_7_7.Text = cboEquipmentID_2.value
     UPS_8_7.Text = cboEquipmentID_2.value
-    generatorselectionLAS7
     
 Errorhandler_12:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Multiple UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_4
+            End If
     
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Corrective Maintenance" Then
 On Error GoTo Errorhandler_13
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Multiple UPS Annual or Corrective.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc.Tables
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_5:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_1_7 = ActiveDocument.Bookmarks("tUPS_1").Range
     Set UPS_2_7 = ActiveDocument.Bookmarks("tUPS_2").Range
@@ -350,9 +269,6 @@ Set targettable = referencedoc.Tables(1)
     Set equipmentID_2_7 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
     EquipmentID_7.Text = cboEquipmentID.value
     equipmentID_2_7.Text = "and " & cboEquipmentID_2.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
     UPS_1_7.Text = cboEquipmentID.value
     UPS_2_7.Text = cboEquipmentID_2.value
     UPS_3_7.Text = cboEquipmentID.value
@@ -361,38 +277,26 @@ Set targettable = referencedoc.Tables(1)
     UPS_6_7.Text = cboEquipmentID.value
     UPS_7_7.Text = cboEquipmentID_2.value
     UPS_8_7.Text = cboEquipmentID_2.value
-    generatorselectionLAS7
 
 Errorhandler_13:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Multiple UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_5
+            End If
 
 
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w/ Cal" Then
 On Error GoTo Errorhandler_14
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Multiple UPS Annual w Cal.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc.Tables
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_6:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_7 = ActiveDocument.Bookmarks("tUPS").Range
     Set UPS_1_7 = ActiveDocument.Bookmarks("tUPS_1").Range
@@ -409,9 +313,6 @@ Set targettable = referencedoc.Tables(1)
     Set UPS_12_7 = ActiveDocument.Bookmarks("tUPS_12").Range
     Set EquipmentID_7 = ActiveDocument.Bookmarks("tEquipmentID").Range
     Set equipmentID_2_7 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
     EquipmentID_7.Text = cboEquipmentID.value
     equipmentID_2_7.Text = "and " & cboEquipmentID_2.value
     UPS_7.Text = cboEquipmentID.value
@@ -427,37 +328,25 @@ Set targettable = referencedoc.Tables(1)
     UPS_10_7.Text = cboEquipmentID_2.value
     UPS_11_7.Text = cboEquipmentID.value
     UPS_12_7.Text = cboEquipmentID_2.value
-    generatorselectionLAS7
     
 Errorhandler_14:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Multiple UPS Annual w Cal.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_6
+            End If
 
 ElseIf cboSite.value = "LAS 7" And cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w/ Cal and Depletion" Then
 On Error GoTo Errorhandler_15
 Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\LAS7 Multiple UPS Annual w Cal and Depl.docx")
-Set targettable = referencedoc.Tables(1)
- For Each targettable In referencedoc.Tables
-    targettable.Range.Select
-    Debug.Print targettable.Title
+copyandpaste_7:
+Set targettable_7 = referencedoc.Tables(1)
+    targettable_7.Range.Select
     Selection.Copy
     referencedoc.Close
     targetdoc.Activate
     Set startpoint = targetdoc.Paragraphs(146).Range
     startpoint.Paste
-  Next targettable
-    Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
-    Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
-    Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
-    Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
-    projectname_7.Text = Me.ProjectName.value
-    projectname_1_7.Text = Me.ProjectName.value
-    Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
-    BuildingName_7.Text = "LAS 7"
     Set SPB_4_7 = ActiveDocument.Bookmarks("tSPB_4").Range
     Set UPS_7 = ActiveDocument.Bookmarks("tUPS").Range
     Set UPS_1_7 = ActiveDocument.Bookmarks("tUPS_1").Range
@@ -476,9 +365,6 @@ Set targettable = referencedoc.Tables(1)
     Set equipmentID_2_7 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
     EquipmentID_7.Text = cboEquipmentID.value
     equipmentID_2_7.Text = "and " & cboEquipmentID_2.value
-    Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
-    Set address_7 = ActiveDocument.Bookmarks("taddress").Range
-    address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
     UPS_7.Text = cboEquipmentID.value
     UPS_1_7.Text = cboEquipmentID.value
     UPS_2_7.Text = cboEquipmentID_2.value
@@ -492,15 +378,13 @@ Set targettable = referencedoc.Tables(1)
     UPS_10_7.Text = cboEquipmentID_2.value
     UPS_11_7.Text = cboEquipmentID.value
     UPS_12_7.Text = cboEquipmentID_2.value
-    generatorselectionLAS7
     
 Errorhandler_15:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/LAS7 Multiple UPS Annual w Cal and Depl.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_7
+            End If
 
 Else
 
@@ -508,8 +392,25 @@ MsgBox "Your selection does not make sense. Please correct your selections."
 
 End If
 
+Set Title_7 = ActiveDocument.Bookmarks("ttitle").Range
 
+Set ISX_7 = ActiveDocument.Bookmarks("tISX").Range
 
+Set ISX_2_7 = ActiveDocument.Bookmarks("tISX_2").Range
+
+Set projectname_7 = ActiveDocument.Bookmarks("tProjectName").Range
+projectname_7.Text = Me.ProjectName.value
+
+Set projectname_1_7 = ActiveDocument.Bookmarks("tProjectName_1").Range
+projectname_1_7.Text = Me.ProjectName.value
+
+Set address_7 = ActiveDocument.Bookmarks("taddress").Range
+address_7.Text = "7135 S. Decatur Blvd.," & vbCr & "Las Vegas, NV 89118"
+
+Set BuildingName_7 = ActiveDocument.Bookmarks("tbuildingName").Range
+BuildingName_7.Text = cboSite.value
+
+generatorselectionLAS7
     
     'Disabling and Enabling ISX Statements if Full Transfer
     
@@ -3439,20 +3340,45 @@ End If
 End Sub
 
 
+Private Sub cbocriticalitylevel_Change()
+
+If cbocriticalitylevel.ListIndex < 0 Then
+    OK.Enabled = False
+End If
+
+
+End Sub
+
 Private Sub cboEquipmentID_2_Change()
 
-If cboEquipmentID.value = cboEquipmentID_2.value Then
+If cboEquipmentID_2.Enabled = True And cboEquipmentID.ListIndex >= 0 Then
+        OK.Enabled = True
+End If
 
-MsgBox "Please make another selection for the second UPS.", vbOKOnly
- If vbOK = 1 Then
- cboEquipmentID_2.Clear
- cboPS_Change
- End If
+If cboEquipmentID.ListIndex < 0 And cboEquipmentID_2.ListIndex < 0 Then
+    
+ElseIf cboEquipmentID.ListIndex >= 0 And cboEquipmentID_2.ListIndex >= 0 And cboEquipmentID.ListIndex = cboEquipmentID_2.ListIndex Then
+    MsgBox "Please make another selection for the second UPS.", vbOKOnly
+     If vbOK = 1 Then
+     cboEquipmentID_2.Clear
+     cboPS_Change
+     End If
 End If
  
 End Sub
+Private Sub cboEquipmentID_Change()
 
-Public Sub cbonumberofups_AfterUpdate()
+If cboEquipmentID_2.ListIndex < 0 And cboEquipmentID_2.Enabled = True And cboEquipmentID.ListIndex < 0 Then
+    OK.Enabled = False
+ElseIf cbonumberofups.value = 1 And cboEquipmentID_2.Enabled = False Then
+    OK.Enabled = True
+End If
+
+End Sub
+
+
+
+Public Sub cbonumberofups_change()
 
 If cbonumberofups.value = "1" Then
     cbotypeofmaintenance.Clear
@@ -3476,6 +3402,10 @@ ElseIf cbonumberofups.value = "2" Then
     cboEquipmentID_2.Enabled = True
     cboEquipmentID_2.Visible = True
     Label11.Visible = True
+End If
+
+If cbonumberofups.ListIndex < 0 Then
+    OK.Enabled = False
 End If
 
 End Sub
@@ -3535,14 +3465,24 @@ If cboSite.value = "LAS 11" Then
     
 End If
 
+If cboSite.ListIndex < 0 Then
+    OK.Enabled = False
+End If
+
 End Sub
 
+Private Sub cbotypeofmaintenance_Change()
 
+If cbotypeofmaintenance.ListIndex < 0 Then
+    OK.Enabled = False
+End If
 
-Public Sub Clear_Click()
+End Sub
 
-    Public ctl As MSForms.Control
+Private Sub Clear_Click()
 
+    Dim ctl As MSForms.Control
+    
     For Each ctl In Me.Controls
         Select Case TypeName(ctl)
             Case "TextBox"
@@ -3560,12 +3500,14 @@ cboEquipmentID_2.Clear
 cboEquipmentID_2.Visible = True
 cboEquipmentID_2.Enabled = True
 Label11.Visible = True
+
     
 End Sub
 
 
-
 Public Sub UserForm_Initialize()
+
+OK.Enabled = False
 
 With cbonumberofups
     .AddItem "1"
@@ -3584,7 +3526,6 @@ With cboSite
     .AddItem "LAS 10"
     .AddItem "LAS 11"
 End With
-
 
 End Sub
 
@@ -3606,6 +3547,8 @@ Public Sub cboPS_Change()
 
 'Populate UPS drop down boxes
 
+OK.Enabled = cbotypeofmaintenance.value <> "" And cbonumberofups.value <> "" And cboSite.value <> "" And cboPS.value <> "" And cboEquipmentID.value <> "" And cbocriticalitylevel.value <> ""
+
 If cboPS.value = "Power System 1 " Then
     cboEquipmentID.Clear
     With cboEquipmentID
@@ -3656,21 +3599,21 @@ End If
 
 If cboPS.value = "Power System 3 " Then
     cboEquipmentID.Clear
+    cbonumberofups.value = "1"
+    cboEquipmentID_2.Visible = False
+    cbotypeofmaintenance.Clear
+    cbotypeofmaintenance.Clear
+    Label11.Visible = False
+    cbonumberofups_change
     With cboEquipmentID
     .AddItem "UPS 14A"
     .AddItem "UPS 16B"
     .AddItem "UPS 18C"
     End With
+
+
 End If
 
-If cboPS.value = "Power System 3 " Then
-    cboEquipmentID_2.Clear
-    With cboEquipmentID_2
-    .AddItem "UPS 14A"
-    .AddItem "UPS 16B"
-    .AddItem "UPS 18C"
-    End With
-End If
 
 If cboPS.value = "Power System 5" Then
     cboEquipmentID.Clear
@@ -3722,6 +3665,11 @@ End If
 
 If cboPS.value = "Power System 7" Then
     cboEquipmentID.Clear
+    cbonumberofups.value = "1"
+    cboEquipmentID_2.Visible = False
+    cbotypeofmaintenance.Clear
+    Label11.Visible = False
+    cbonumberofups_change
     With cboEquipmentID
     .AddItem "UPS 37A"
     .AddItem "UPS 39B"
@@ -3729,14 +3677,6 @@ If cboPS.value = "Power System 7" Then
     End With
 End If
 
-If cboPS.value = "Power System 7" Then
-    cboEquipmentID_2.Clear
-    With cboEquipmentID_2
-    .AddItem "UPS 37A"
-    .AddItem "UPS 39B"
-    .AddItem "UPS 41C"
-    End With
-End If
 
 If cboPS.value = "Power System 8" Then
     cboEquipmentID.Clear
@@ -4100,10 +4040,15 @@ If cboPS.value = "Power System 3" Then
     .AddItem "UPS 6C"
     End With
 End If
-    
+
+If cboPS.ListIndex < 0 Then
+    OK.Enabled = False
+End If
 
 
 End Sub
+
+
 Public Sub setmbs()
     
     Set MBS = ActiveDocument.Bookmarks("tMBS").Range
@@ -7349,6 +7294,7 @@ Set PDU_8 = ActiveDocument.Bookmarks("tPDU_8").Range
  End Sub
 
 Public Sub OK_Click()
+
     
     Me.Hide
     Application.ScreenUpdating = False
@@ -7429,19 +7375,43 @@ Public Sub OK_Click()
     Dim Projectmanagerphone As Range
     Dim footerSite As Range
     Dim footerSite_1 As Range
+    'Dim FSO
+    'Dim spath As String
 
 ActiveDocument.SaveAs2 FileName:=Environ("USERPROFILE") & "\Desktop\" & ProjectName.Text & " " & "Transfer Script" & " " & Month(Now) _
-& "." & Day(Now) & "." & Year(Now) & ".docx"
+& "_" & Day(Now) & "_" & Year(Now) & ".docx"
 
+'spath = Environ("USERPROFILE") & "\Desktop\" & ProjectName.Text & " " & "Transfer Script" & " " & Month(Now) _
+& "_" & Day(Now) & "_" & Year(Now) & ".docx"
+
+'Set FSO = CreateObject("Scripting.FileSystemObject")
+
+'Please wait status box
 With UserForm1
 .Caption = "Initializing workbook..."
 .Show vbModeless
 .Repaint
 End With
 
- 'Inserting the UPS's to be transferred
+If cbotypeofmaintenance.value = "" Then
+
+MsgBox "You must select the type of Maintenance", vbOKOnly
+    If vbOK Then
+    Me.Show
+    Clear_Click
+        'ActiveDocument.Close
+        'If FSO.Fileexists(spath) Then
+            'FSO.Deletefile spath, True
+            'MsgBox "The file has been deleted from your desktop", vbInformation, "Done!"
+            'Exit Sub
+            'Else
+            'MsgBox "File not found", vbInformation, "Not Found!"
+        'End If
+    End If
+End If
+
+
     
-'CreateObject("WScript.Shell").PopUp "Please wait while your document is created.", 1
 
 
 
@@ -7542,23 +7512,20 @@ End If
 
 
 Set targetdoc = Documents.Open(FileName:=Environ("USERPROFILE") & "\Desktop\" & ProjectName.Text & " " & "transfer script" & " " & Month(Now) _
-    & "." & Day(Now) & "." & Year(Now) & ".docx")
+    & "_" & Day(Now) & "_" & Year(Now) & ".docx")
     
 
 If (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/o Cal or Depletion" Then
-            On Err.Number = 5174 GoTo Errorhandler
+            On Error GoTo Errorhandler
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Single UPS Annual or Corrective.docx")
+copyandpaste_8:
             Set targettable = referencedoc.Tables(1)
-            For Each targettable In referencedoc.Tables
                targettable.Range.Select
-               Debug.Print targettable.Title
                Selection.Copy
-               referencedoc.Close
                targetdoc.Activate
                Set startpoint = targetdoc.Paragraphs(146).Range
                startpoint.Paste
-             Next targettable
              referencedoc.Close
             Set UPS_3 = ActiveDocument.Bookmarks("tUPS_3").Range
             Set UPS_4 = ActiveDocument.Bookmarks("tUPS_4").Range
@@ -7572,28 +7539,25 @@ cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/o
             generatorselection_1
             
 Errorhandler:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Single UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_8
+            End If
+
 
     ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
     cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Corrective Maintenance" Then
-            On Err.Number = 5174 GoTo Errorhandler_1
+            On Error GoTo Errorhandler_1
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Single UPS Annual or Corrective.docx")
+copyandpaste_9:
             Set targettable = referencedoc.Tables(1)
-            For Each targettable In referencedoc.Tables
                targettable.Range.Select
-               Debug.Print targettable.Title
                Selection.Copy
-               referencedoc.Close
                targetdoc.Activate
                Set startpoint = targetdoc.Paragraphs(146).Range
                startpoint.Paste
-             Next targettable
-             referencedoc.Close
+            referencedoc.Close
             Set Title = ActiveDocument.Bookmarks("ttitle").Range
             Set UPS = Nothing
             Set UPS_1 = Nothing
@@ -7613,27 +7577,23 @@ Resume Next
             generatorselection_1
             
 Errorhandler_1:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Single UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_9
+            End If
 
 ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ Cal" Then
-            On Err.Number = 5174 GoTo Errorhandler_2
+            On Error GoTo Errorhandler_2
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Single UPS Annual w Cal.docx")
+copyandpaste_10:
             Set targettable = referencedoc.Tables(1)
-             For Each targettable In referencedoc.Tables
                 targettable.Range.Select
-                Debug.Print targettable.Title
                 Selection.Copy
-                referencedoc.Close
                 targetdoc.Activate
                 Set startpoint = targetdoc.Paragraphs(146).Range
                 startpoint.Paste
-              Next targettable
               referencedoc.Close
             Set UPS_2 = ActiveDocument.Bookmarks("tUPS_2").Range
             Set UPS_3 = ActiveDocument.Bookmarks("tUPS_3").Range
@@ -7661,27 +7621,23 @@ cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ 
             generatorSelection
 
 Errorhandler_2:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Single UPS Annual w Cal.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_10
+            End If
 
 ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ Cal and Depletion" Then
-            On Err.Number = 5174 GoTo Errorhandler_3
+            On Error GoTo Errorhandler_3
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Single UPS Annual w Cal and Depl.docx")
+copyandpaste_11:
             Set targettable = referencedoc.Tables(1)
-             For Each targettable In referencedoc.Tables
                 targettable.Range.Select
-                Debug.Print targettable.Title
                 Selection.Copy
-                referencedoc.Close
                 targetdoc.Activate
                 Set startpoint = targetdoc.Paragraphs(146).Range
                 startpoint.Paste
-              Next targettable
               referencedoc.Close
             Set UPS = ActiveDocument.Bookmarks("tUPS").Range
             Set UPS_1 = ActiveDocument.Bookmarks("tUPS_1").Range
@@ -7706,30 +7662,25 @@ cbonumberofups.value = "1" And cbotypeofmaintenance.value = "1 UPS Annual PM w/ 
             generatorSelection
         
 Errorhandler_3:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Single UPS Annual w Cal and Depl.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_11
+            End If
 
 
 ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w/o Cal or Depletion" Then
-            On Err.Number = 5174 GoTo Errorhandler_4
+            On Error GoTo Errorhandler_4
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Multiple UPS Annual or Corrective.docx")
+copyandpaste_12:
             Set targettable = referencedoc.Tables(1)
-             For Each targettable In referencedoc.Tables
                 targettable.Range.Select
-                Debug.Print targettable.Title
                 Selection.Copy
-                referencedoc.Close
                 targetdoc.Activate
                 Set startpoint = targetdoc.Paragraphs(146).Range
                 startpoint.Paste
-             Next targettable
-              referencedoc.Close
-            Set Title = ActiveDocument.Bookmarks("ttitle").Range
+             referencedoc.Close
             Set UPS = ActiveDocument.Bookmarks("tUPS").Range
             Set UPS_1 = ActiveDocument.Bookmarks("tUPS_1").Range
             Set UPS_2 = ActiveDocument.Bookmarks("tUPS_2").Range
@@ -7744,7 +7695,7 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w
             Set UPS_11 = Nothing
             Set UPS_12 = Nothing
             Set EquipmentID_2 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
-            EquipmentID_2.Text = "And" & cboEquipmentID_2.value
+            EquipmentID_2.Text = "And " & cboEquipmentID_2.value
             Set EquipmentID = ActiveDocument.Bookmarks("tEquipmentID").Range
             EquipmentID.Text = cboEquipmentID.value
             UPS.Text = cboEquipmentID.value
@@ -7761,29 +7712,24 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w
             generatorselection_1
             
 Errorhandler_4:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Multiple UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_12
+            End If
 
 ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Corrective Maintenance" Then
-            On Err.Number = 5174 GoTo Errorhandler_5
+            On Error GoTo Errorhandler_5
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Multiple UPS Annual or Corrective.docx")
+copyandpaste_13:
             Set targettable = referencedoc.Tables(1)
-             For Each targettable In referencedoc.Tables
                 targettable.Range.Select
-                Debug.Print targettable.Title
                 Selection.Copy
-                referencedoc.Close
                 targetdoc.Activate
                 Set startpoint = targetdoc.Paragraphs(146).Range
                 startpoint.Paste
-              Next targettable
               referencedoc.Close
-            Set UPS = ActiveDocument.Bookmarks("tUPS").Range
             Set UPS_1 = ActiveDocument.Bookmarks("tUPS_1").Range
             Set UPS_2 = ActiveDocument.Bookmarks("tUPS_2").Range
             Set UPS_3 = ActiveDocument.Bookmarks("tUPS_3").Range
@@ -7799,7 +7745,7 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Corrective 
             Set MBS_GSB = ActiveDocument.Bookmarks("tMBS_GSB").Range
             Set MVS = ActiveDocument.Bookmarks("tMVS").Range
             Set EquipmentID_2 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
-            EquipmentID_2.Text = "And" & cboEquipmentID_2.value
+            EquipmentID_2.Text = "And " & cboEquipmentID_2.value
             Set EquipmentID = ActiveDocument.Bookmarks("tEquipmentID").Range
             EquipmentID.Text = cboEquipmentID.value
             UPS.Text = cboEquipmentID.value
@@ -7816,29 +7762,24 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Corrective 
             generatorselection_1
             
 Errorhandler_5:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Multiple UPS Annual or Corrective.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_13
+            End If
 
 ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w/ Cal" Then
-            On Err.Number = 5174 GoTo Errorhandler_6
+            On Error GoTo Errorhandler_6
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Multiple UPS Annual w Cal.docx")
+copyandpaste_14:
             Set targettable = referencedoc.Tables(1)
-                For Each targettable In referencedoc.Tables
                    targettable.Range.Select
-                   Debug.Print targettable.Title
                    Selection.Copy
-                   referencedoc.Close
                    targetdoc.Activate
                    Set startpoint = targetdoc.Paragraphs(146).Range
                    startpoint.Paste
-             Next targettable
-              referencedoc.Close
-            Set Title = ActiveDocument.Bookmarks("ttitle").Range
+             referencedoc.Close
             Set UPS = ActiveDocument.Bookmarks("tUPS").Range
             Set UPS_1 = ActiveDocument.Bookmarks("tUPS_1").Range
             Set UPS_2 = ActiveDocument.Bookmarks("tUPS_2").Range
@@ -7853,7 +7794,7 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w
             Set UPS_11 = ActiveDocument.Bookmarks("tUPS_11").Range
             Set UPS_12 = ActiveDocument.Bookmarks("tUPS_12").Range
             Set EquipmentID_2 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
-            EquipmentID_2.Text = "And" & cboEquipmentID_2.value
+            EquipmentID_2.Text = "And " & cboEquipmentID_2.value
             Set EquipmentID = ActiveDocument.Bookmarks("tEquipmentID").Range
             EquipmentID.Text = cboEquipmentID.value
             UPS.Text = cboEquipmentID.value
@@ -7874,27 +7815,23 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w
             generatorSelection
             
 Errorhandler_6:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Multiple UPS Annual w Cal.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_14
+            End If
 
 ElseIf (cboSite.value = "LAS 8" Or cboSite.value = "LAS 9" Or cboSite.value = "LAS 10" Or cboSite.value = "LAS 11") And _
 cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w/ Cal and Depletion" Then
-            On Err.Number = 5174 GoTo Errorhandler_7
+            On Error GoTo Errorhandler_7
             Set referencedoc = Documents.Open("T:\3 - SITE FILES & EQUIPMENT\EQUIPMENT (MULTI-SITE)\Transfer table reference documents\New Multiple UPS Annual w Cal and Depl.docx")
+copyandpaste_15:
             Set targettable = referencedoc.Tables(1)
-             For Each targettable In referencedoc.Tables
                 targettable.Range.Select
-                Debug.Print targettable.Title
                 Selection.Copy
-                referencedoc.Close
                 targetdoc.Activate
                 Set startpoint = targetdoc.Paragraphs(146).Range
                 startpoint.Paste
-              Next targettable
               referencedoc.Close
             Set UPS = ActiveDocument.Bookmarks("tUPS").Range
             Set UPS_1 = ActiveDocument.Bookmarks("tUPS_1").Range
@@ -7910,7 +7847,7 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w
             Set UPS_11 = ActiveDocument.Bookmarks("tUPS_11").Range
             Set UPS_12 = ActiveDocument.Bookmarks("tUPS_12").Range
             Set EquipmentID_2 = ActiveDocument.Bookmarks("tEquipmentID_2").Range
-            EquipmentID_2.Text = "And" & cboEquipmentID_2.value
+            EquipmentID_2.Text = "And " & cboEquipmentID_2.value
             Set EquipmentID = ActiveDocument.Bookmarks("tEquipmentID").Range
             EquipmentID.Text = cboEquipmentID.value
             UPS.Text = cboEquipmentID.value
@@ -7931,12 +7868,11 @@ cbonumberofups.value = "2" And cbotypeofmaintenance.value = "2 UPS's Annual PM w
             generatorSelection
             
 Errorhandler_7:
-            Select Case Err.Number
-            Case 5174
+            If Err.Number = 5174 Then
             Err.Clear
             Set referencedoc = Documents.Open("https://intranet.switchnet.nv/CiOps/LAS7/Shared Documents/Transfer table reference documents/New Multiple UPS Annual w Cal and Depl.docx")
-            End Select
-Resume Next
+            GoTo copyandpaste_15
+            End If
 
 End If
 
@@ -7945,14 +7881,6 @@ targetdoc.Activate
 
 'number_UPS_Selection
 
-If cbotypeofmaintenance.value = "" Then
-    MsgBox "Please Select Type of Maintenance", vbOKCancel
-    If vbOK = 1 Then
-        Clear_Click
-    Else
-        Application.Quit
-    End If
-End If
         
     If cboPS.value = "" Then
         MsgBox "You must select a Power System", vbOKCancel
